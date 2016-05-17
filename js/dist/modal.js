@@ -1,8 +1,20 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _util = require('./util');
+
+var _util2 = _interopRequireDefault(_util);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * --------------------------------------------------------------------------
@@ -11,7 +23,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * --------------------------------------------------------------------------
  */
 
-var Modal = (function ($) {
+var Modal = function ($) {
 
   /**
    * ------------------------------------------------------------------------
@@ -77,7 +89,7 @@ var Modal = (function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var Modal = (function () {
+  var Modal = function () {
     function Modal(element, config) {
       _classCallCheck(this, Modal);
 
@@ -92,16 +104,11 @@ var Modal = (function ($) {
       this._scrollbarWidth = 0;
     }
 
-    /**
-     * ------------------------------------------------------------------------
-     * Data Api implementation
-     * ------------------------------------------------------------------------
-     */
-
     // getters
 
     _createClass(Modal, [{
       key: 'toggle',
+
 
       // public
 
@@ -172,9 +179,9 @@ var Modal = (function ($) {
         $(this._element).off(Event.CLICK_DISMISS);
         $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
 
-        if (Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+        if (_util2.default.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
 
-          $(this._element).one(Util.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
+          $(this._element).one(_util2.default.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
         } else {
           this._hideModal();
         }
@@ -206,7 +213,7 @@ var Modal = (function ($) {
       key: '_getConfig',
       value: function _getConfig(config) {
         config = $.extend({}, Default, config);
-        Util.typeCheckConfig(NAME, config, DefaultType);
+        _util2.default.typeCheckConfig(NAME, config, DefaultType);
         return config;
       }
     }, {
@@ -214,7 +221,7 @@ var Modal = (function ($) {
       value: function _showElement(relatedTarget) {
         var _this2 = this;
 
-        var transition = Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
+        var transition = _util2.default.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
 
         if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
           // don't move modals dom position
@@ -225,7 +232,7 @@ var Modal = (function ($) {
         this._element.scrollTop = 0;
 
         if (transition) {
-          Util.reflow(this._element);
+          _util2.default.reflow(this._element);
         }
 
         $(this._element).addClass(ClassName.IN);
@@ -246,7 +253,7 @@ var Modal = (function ($) {
         };
 
         if (transition) {
-          $(this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
+          $(this._dialog).one(_util2.default.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
         } else {
           transitionComplete();
         }
@@ -316,7 +323,7 @@ var Modal = (function ($) {
         var animate = $(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : '';
 
         if (this._isShown && this._config.backdrop) {
-          var doAnimate = Util.supportsTransitionEnd() && animate;
+          var doAnimate = _util2.default.supportsTransitionEnd() && animate;
 
           this._backdrop = document.createElement('div');
           this._backdrop.className = ClassName.BACKDROP;
@@ -343,7 +350,7 @@ var Modal = (function ($) {
           });
 
           if (doAnimate) {
-            Util.reflow(this._backdrop);
+            _util2.default.reflow(this._backdrop);
           }
 
           $(this._backdrop).addClass(ClassName.IN);
@@ -357,7 +364,7 @@ var Modal = (function ($) {
             return;
           }
 
-          $(this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+          $(this._backdrop).one(_util2.default.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
         } else if (!this._isShown && this._backdrop) {
           $(this._backdrop).removeClass(ClassName.IN);
 
@@ -368,8 +375,8 @@ var Modal = (function ($) {
             }
           };
 
-          if (Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
-            $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+          if (_util2.default.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+            $(this._backdrop).one(_util2.default.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
           } else {
             callbackRemove();
           }
@@ -454,7 +461,7 @@ var Modal = (function ($) {
       value: function _jQueryInterface(config, relatedTarget) {
         return this.each(function () {
           var data = $(this).data(DATA_KEY);
-          var _config = $.extend({}, Modal.Default, $(this).data(), typeof config === 'object' && config);
+          var _config = $.extend({}, Modal.Default, $(this).data(), (typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object' && config);
 
           if (!data) {
             data = new Modal(this, _config);
@@ -484,13 +491,19 @@ var Modal = (function ($) {
     }]);
 
     return Modal;
-  })();
+  }();
+
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
 
   $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
     var _this7 = this;
 
-    var target = undefined;
-    var selector = Util.getSelectorFromElement(this);
+    var target = void 0;
+    var selector = _util2.default.getSelectorFromElement(this);
 
     if (selector) {
       target = $(selector)[0];
@@ -532,5 +545,7 @@ var Modal = (function ($) {
   };
 
   return Modal;
-})(jQuery);
+}(jQuery);
+
+exports.default = Modal;
 //# sourceMappingURL=modal.js.map

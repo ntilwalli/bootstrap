@@ -1,8 +1,20 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _util = require('./util');
+
+var _util2 = _interopRequireDefault(_util);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * --------------------------------------------------------------------------
@@ -11,7 +23,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * --------------------------------------------------------------------------
  */
 
-var Carousel = (function ($) {
+var Carousel = function ($) {
 
   /**
    * ------------------------------------------------------------------------
@@ -83,7 +95,7 @@ var Carousel = (function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var Carousel = (function () {
+  var Carousel = function () {
     function Carousel(element, config) {
       _classCallCheck(this, Carousel);
 
@@ -101,16 +113,11 @@ var Carousel = (function ($) {
       this._addEventListeners();
     }
 
-    /**
-     * ------------------------------------------------------------------------
-     * Data Api implementation
-     * ------------------------------------------------------------------------
-     */
-
     // getters
 
     _createClass(Carousel, [{
       key: 'next',
+
 
       // public
 
@@ -141,8 +148,8 @@ var Carousel = (function ($) {
           this._isPaused = true;
         }
 
-        if ($(this._element).find(Selector.NEXT_PREV)[0] && Util.supportsTransitionEnd()) {
-          Util.triggerTransitionEnd(this._element);
+        if ($(this._element).find(Selector.NEXT_PREV)[0] && _util2.default.supportsTransitionEnd()) {
+          _util2.default.triggerTransitionEnd(this._element);
           this.cycle(true);
         }
 
@@ -217,7 +224,7 @@ var Carousel = (function ($) {
       key: '_getConfig',
       value: function _getConfig(config) {
         config = $.extend({}, Default, config);
-        Util.typeCheckConfig(NAME, config, DefaultType);
+        _util2.default.typeCheckConfig(NAME, config, DefaultType);
         return config;
       }
     }, {
@@ -338,16 +345,16 @@ var Carousel = (function ($) {
           direction: directionalClassName
         });
 
-        if (Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.SLIDE)) {
+        if (_util2.default.supportsTransitionEnd() && $(this._element).hasClass(ClassName.SLIDE)) {
 
           $(nextElement).addClass(direction);
 
-          Util.reflow(nextElement);
+          _util2.default.reflow(nextElement);
 
           $(activeElement).addClass(directionalClassName);
           $(nextElement).addClass(directionalClassName);
 
-          $(activeElement).one(Util.TRANSITION_END, function () {
+          $(activeElement).one(_util2.default.TRANSITION_END, function () {
             $(nextElement).removeClass(directionalClassName).removeClass(direction);
 
             $(nextElement).addClass(ClassName.ACTIVE);
@@ -382,7 +389,7 @@ var Carousel = (function ($) {
           var data = $(this).data(DATA_KEY);
           var _config = $.extend({}, Default, $(this).data());
 
-          if (typeof config === 'object') {
+          if ((typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object') {
             $.extend(_config, config);
           }
 
@@ -409,7 +416,7 @@ var Carousel = (function ($) {
     }, {
       key: '_dataApiClickHandler',
       value: function _dataApiClickHandler(event) {
-        var selector = Util.getSelectorFromElement(this);
+        var selector = _util2.default.getSelectorFromElement(this);
 
         if (!selector) {
           return;
@@ -449,7 +456,13 @@ var Carousel = (function ($) {
     }]);
 
     return Carousel;
-  })();
+  }();
+
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
 
   $(document).on(Event.CLICK_DATA_API, Selector.DATA_SLIDE, Carousel._dataApiClickHandler);
 
@@ -474,5 +487,7 @@ var Carousel = (function ($) {
   };
 
   return Carousel;
-})(jQuery);
+}(jQuery);
+
+exports.default = Carousel;
 //# sourceMappingURL=carousel.js.map

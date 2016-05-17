@@ -1,8 +1,20 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _util = require('./util');
+
+var _util2 = _interopRequireDefault(_util);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * --------------------------------------------------------------------------
@@ -11,7 +23,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * --------------------------------------------------------------------------
  */
 
-var Collapse = (function ($) {
+var Collapse = function ($) {
 
   /**
    * ------------------------------------------------------------------------
@@ -68,7 +80,7 @@ var Collapse = (function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var Collapse = (function () {
+  var Collapse = function () {
     function Collapse(element, config) {
       _classCallCheck(this, Collapse);
 
@@ -88,16 +100,11 @@ var Collapse = (function ($) {
       }
     }
 
-    /**
-     * ------------------------------------------------------------------------
-     * Data Api implementation
-     * ------------------------------------------------------------------------
-     */
-
     // getters
 
     _createClass(Collapse, [{
       key: 'toggle',
+
 
       // public
 
@@ -117,8 +124,8 @@ var Collapse = (function ($) {
           return;
         }
 
-        var actives = undefined;
-        var activesData = undefined;
+        var actives = void 0;
+        var activesData = void 0;
 
         if (this._parent) {
           actives = $.makeArray($(Selector.ACTIVES));
@@ -170,7 +177,7 @@ var Collapse = (function ($) {
           $(_this._element).trigger(Event.SHOWN);
         };
 
-        if (!Util.supportsTransitionEnd()) {
+        if (!_util2.default.supportsTransitionEnd()) {
           complete();
           return;
         }
@@ -178,7 +185,7 @@ var Collapse = (function ($) {
         var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
         var scrollSize = 'scroll' + capitalizedDimension;
 
-        $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+        $(this._element).one(_util2.default.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
 
         this._element.style[dimension] = this._element[scrollSize] + 'px';
       }
@@ -202,7 +209,7 @@ var Collapse = (function ($) {
 
         this._element.style[dimension] = this._element[offsetDimension] + 'px';
 
-        Util.reflow(this._element);
+        _util2.default.reflow(this._element);
 
         $(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.IN);
 
@@ -221,12 +228,12 @@ var Collapse = (function ($) {
 
         this._element.style[dimension] = 0;
 
-        if (!Util.supportsTransitionEnd()) {
+        if (!_util2.default.supportsTransitionEnd()) {
           complete();
           return;
         }
 
-        $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+        $(this._element).one(_util2.default.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
       }
     }, {
       key: 'setTransitioning',
@@ -252,7 +259,7 @@ var Collapse = (function ($) {
       value: function _getConfig(config) {
         config = $.extend({}, Default, config);
         config.toggle = Boolean(config.toggle); // coerce string values
-        Util.typeCheckConfig(NAME, config, DefaultType);
+        _util2.default.typeCheckConfig(NAME, config, DefaultType);
         return config;
       }
     }, {
@@ -293,7 +300,7 @@ var Collapse = (function ($) {
     }], [{
       key: '_getTargetFromElement',
       value: function _getTargetFromElement(element) {
-        var selector = Util.getSelectorFromElement(element);
+        var selector = _util2.default.getSelectorFromElement(element);
         return selector ? $(selector)[0] : null;
       }
     }, {
@@ -302,7 +309,7 @@ var Collapse = (function ($) {
         return this.each(function () {
           var $this = $(this);
           var data = $this.data(DATA_KEY);
-          var _config = $.extend({}, Default, $this.data(), typeof config === 'object' && config);
+          var _config = $.extend({}, Default, $this.data(), (typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object' && config);
 
           if (!data && _config.toggle && /show|hide/.test(config)) {
             _config.toggle = false;
@@ -334,7 +341,13 @@ var Collapse = (function ($) {
     }]);
 
     return Collapse;
-  })();
+  }();
+
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
 
   $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
     event.preventDefault();
@@ -360,5 +373,7 @@ var Collapse = (function ($) {
   };
 
   return Collapse;
-})(jQuery);
+}(jQuery);
+
+exports.default = Collapse;
 //# sourceMappingURL=collapse.js.map

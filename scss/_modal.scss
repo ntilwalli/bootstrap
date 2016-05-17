@@ -39,8 +39,11 @@
 // Shell div to position the modal with bottom padding
 .modal-dialog {
   position: relative;
-  width: auto;
-  margin: 10px;
+  //width: auto;
+  //margin: 10px;
+  width: $modal-md;
+  margin: 30px auto;
+
 }
 
 // Actual modal
@@ -48,9 +51,9 @@
   position: relative;
   background-color: $modal-content-bg;
   background-clip: padding-box;
-  border: 1px solid $modal-content-border-color;
-  border-radius: $border-radius-lg;
-  @include box-shadow(0 3px 9px rgba(0,0,0,.5));
+  border: 0px solid $modal-content-border-color;
+  border-radius: $border-radius-sm;
+  //@include box-shadow(0 5px 9px rgba(0,0,0,.5));
   // Remove focus outline from opened modal
   outline: 0;
 }
@@ -127,20 +130,35 @@
 }
 
 // Scale up the modal
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-down(sm) {
   // Automatically set modal's width for larger viewports
+  // .modal-dialog {
+  //   width: $modal-md;
+  //   margin: 30px auto;
+  // }
+  // .modal-content {
+  //   @include box-shadow(0 4px 15px rgba(0,0,0,.5));
+  // }
+
   .modal-dialog {
-    width: $modal-md;
-    margin: 30px auto;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
   }
   .modal-content {
-    @include box-shadow(0 5px 15px rgba(0,0,0,.5));
+    //@include box-shadow(0 4px 15px rgba(0,0,0,.5));
+    width: 100%;
+    border-radius: 0;
+    height: 100%;
   }
 
   // Modal sizes
   .modal-sm { width: $modal-sm; }
+
+
 }
 
 @include media-breakpoint-up(md) {
-  .modal-lg { width: $modal-lg; }
+ .modal-lg { width: $modal-lg; }
 }

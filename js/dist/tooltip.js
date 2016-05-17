@@ -1,10 +1,20 @@
-/* global Tether */
-
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* global Tether */
+
+var _util = require('./util');
+
+var _util2 = _interopRequireDefault(_util);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * --------------------------------------------------------------------------
@@ -13,7 +23,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * --------------------------------------------------------------------------
  */
 
-var Tooltip = (function ($) {
+var Tooltip = function ($) {
 
   /**
    * Check for Tether dependency
@@ -116,7 +126,7 @@ var Tooltip = (function ($) {
    * ------------------------------------------------------------------------
    */
 
-  var Tooltip = (function () {
+  var Tooltip = function () {
     function Tooltip(element, config) {
       _classCallCheck(this, Tooltip);
 
@@ -135,16 +145,11 @@ var Tooltip = (function ($) {
       this._setListeners();
     }
 
-    /**
-     * ------------------------------------------------------------------------
-     * jQuery
-     * ------------------------------------------------------------------------
-     */
-
     // getters
 
     _createClass(Tooltip, [{
       key: 'enable',
+
 
       // public
 
@@ -232,7 +237,7 @@ var Tooltip = (function ($) {
           }
 
           var tip = this.getTipElement();
-          var tipId = Util.getUID(this.constructor.NAME);
+          var tipId = _util2.default.getUID(this.constructor.NAME);
 
           tip.setAttribute('id', tipId);
           this.element.setAttribute('aria-describedby', tipId);
@@ -262,7 +267,7 @@ var Tooltip = (function ($) {
             addTargetClasses: false
           });
 
-          Util.reflow(tip);
+          _util2.default.reflow(tip);
           this._tether.position();
 
           $(tip).addClass(ClassName.IN);
@@ -278,8 +283,8 @@ var Tooltip = (function ($) {
             }
           };
 
-          if (Util.supportsTransitionEnd() && $(this.tip).hasClass(ClassName.FADE)) {
-            $(this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(Tooltip._TRANSITION_DURATION);
+          if (_util2.default.supportsTransitionEnd() && $(this.tip).hasClass(ClassName.FADE)) {
+            $(this.tip).one(_util2.default.TRANSITION_END, complete).emulateTransitionEnd(Tooltip._TRANSITION_DURATION);
             return;
           }
 
@@ -315,9 +320,9 @@ var Tooltip = (function ($) {
 
         $(tip).removeClass(ClassName.IN);
 
-        if (Util.supportsTransitionEnd() && $(this.tip).hasClass(ClassName.FADE)) {
+        if (_util2.default.supportsTransitionEnd() && $(this.tip).hasClass(ClassName.FADE)) {
 
-          $(tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+          $(tip).one(_util2.default.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
         } else {
           complete();
         }
@@ -352,7 +357,7 @@ var Tooltip = (function ($) {
       key: 'setElementContent',
       value: function setElementContent($element, content) {
         var html = this.config.html;
-        if (typeof content === 'object' && (content.nodeType || content.jquery)) {
+        if ((typeof content === 'undefined' ? 'undefined' : _typeof(content)) === 'object' && (content.nodeType || content.jquery)) {
           // content is a DOM node or a jQuery
           if (html) {
             if (!$(content).parent().is($element)) {
@@ -421,7 +426,7 @@ var Tooltip = (function ($) {
     }, {
       key: '_fixTitle',
       value: function _fixTitle() {
-        var titleType = typeof this.element.getAttribute('data-original-title');
+        var titleType = _typeof(this.element.getAttribute('data-original-title'));
         if (this.element.getAttribute('title') || titleType !== 'string') {
           this.element.setAttribute('data-original-title', this.element.getAttribute('title') || '');
           this.element.setAttribute('title', '');
@@ -521,7 +526,7 @@ var Tooltip = (function ($) {
           };
         }
 
-        Util.typeCheckConfig(NAME, config, this.constructor.DefaultType);
+        _util2.default.typeCheckConfig(NAME, config, this.constructor.DefaultType);
 
         return config;
       }
@@ -548,7 +553,7 @@ var Tooltip = (function ($) {
       value: function _jQueryInterface(config) {
         return this.each(function () {
           var data = $(this).data(DATA_KEY);
-          var _config = typeof config === 'object' ? config : null;
+          var _config = (typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object' ? config : null;
 
           if (!data && /destroy|hide/.test(config)) {
             return;
@@ -605,7 +610,13 @@ var Tooltip = (function ($) {
     }]);
 
     return Tooltip;
-  })();
+  }();
+
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
 
   $.fn[NAME] = Tooltip._jQueryInterface;
   $.fn[NAME].Constructor = Tooltip;
@@ -615,5 +626,7 @@ var Tooltip = (function ($) {
   };
 
   return Tooltip;
-})(jQuery);
+}(jQuery);
+
+exports.default = Tooltip;
 //# sourceMappingURL=tooltip.js.map

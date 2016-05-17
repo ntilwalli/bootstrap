@@ -103,8 +103,7 @@ module.exports = function (grunt) {
     babel: {
       dev: {
         options: {
-          sourceMap: true,
-          modules: 'ignore'
+          sourceMap: true
         },
         files: {
           'js/dist/util.js'      : 'js/src/util.js',
@@ -122,16 +121,13 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          modules: 'ignore'
         },
         files: {
           '<%= concat.bootstrap.dest %>' : '<%= concat.bootstrap.dest %>'
         }
       },
       umd: {
-        options: {
-          modules: 'umd'
-        },
+        plugins: ['transform-es2015-modules-umd'],
         files: {
           'dist/js/umd/util.js'      : 'js/src/util.js',
           'dist/js/umd/alert.js'     : 'js/src/alert.js',
@@ -313,6 +309,12 @@ module.exports = function (grunt) {
         src: ['*.css', '!*.min.css'],
         dest: 'dist/css/'
       },
+      tipjar: {
+        expand: true,
+        cwd: 'dist/css/',
+        src: ['*.css', '!*.min.css'],
+        dest: '../../priv/static/bootstrap/css/'
+      },
       examples: {
         expand: true,
         cwd: 'docs/examples/',
@@ -380,12 +382,12 @@ module.exports = function (grunt) {
       },
       sass: {
         files: 'scss/**/*.scss',
-        tasks: ['dist-css', 'docs']
+        tasks: ['dist-css']
       },
-      docs: {
-        files: 'docs/assets/scss/**/*.scss',
-        tasks: ['dist-css', 'docs']
-      }
+      // docs: {
+      //   files: 'docs/assets/scss/**/*.scss',
+      //   tasks: ['dist-css', 'docs']
+      // }
     },
 
     'saucelabs-qunit': {
@@ -501,7 +503,7 @@ module.exports = function (grunt) {
   // grunt.registerTask('sass-compile', ['sass:core', 'sass:extras', 'sass:docs']);
   grunt.registerTask('sass-compile', ['sass:core', 'sass:docs']);
 
-  grunt.registerTask('dist-css', ['sass-compile', 'postcss:core', 'csscomb:dist', 'cssmin:core', 'cssmin:docs']);
+  grunt.registerTask('dist-css', ['sass-compile', 'postcss:core', 'csscomb:dist', 'csscomb:tipjar', 'cssmin:core', 'cssmin:docs']);
 
   // Full distribution task.
   grunt.registerTask('dist', ['clean:dist', 'dist-css', 'dist-js']);
