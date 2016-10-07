@@ -313,7 +313,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: 'dist/css/',
         src: ['*.css', '!*.min.css'],
-        dest: '../../priv/static/bootstrap/css/'
+        dest: '../../apps/candle/priv/static/bootstrap/css/'
       },
       examples: {
         expand: true,

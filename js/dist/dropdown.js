@@ -260,7 +260,7 @@ var Dropdown = function ($) {
           index++;
         }
 
-        if (! ~index) {
+        if (!~index) {
           index = 0;
         }
 
